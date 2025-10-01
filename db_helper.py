@@ -15,6 +15,28 @@ class DB:
     def connect(self):
         return pymysql.connect(**self.config)
     
+    def verify_user(self, username, password):
+        sql = "SELECT COUNT(*) FROM users WHERE username=%s AND password=%s"
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql, (username, password))
+                count, = cur.fetchone()
+                return count == 1
+            
+    def insert_user(self, username, password):
+        sql1 = 'SELECT COUNT(*) FROM users WHERE username = %s OR password = %s'
+        sql2 = 'INSERT INTO users (username, password) VALUES (%s, %s)'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql1, (username, password))
+                count, = cur.fetchone()
+                if count == 1:
+                    return count == 1
+                else:
+                    cur.execute(sql2, (username, password))
+                    conn.commit()
+                    return count == 1
+    
     def fetch_fruits(self):
         sql = 'SELECT * FROM fruits ORDER BY fruit_id'
         with self.connect() as conn:
@@ -28,6 +50,34 @@ class DB:
             with conn.cursor() as cur:
                 cur.execute(sql)
                 return cur.fetchall()
+            
+    def fetch_fruits_order_by_price(self):
+        sql = 'SELECT * FROM fruits ORDER BY price'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()
+            
+    def fetch_fruits_order_by_price_rev(self):
+        sql = 'SELECT * FROM fruits ORDER BY price DESC'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()
+            
+    def fetch_fruits_order_by_amount(self):
+        sql = 'SELECT * FROM fruits ORDER BY amount'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()
+            
+    def fetch_fruits_order_by_amount_rev(self):
+        sql = 'SELECT * FROM fruits ORDER BY amount DESC'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()      
     
     def insert_fruit(self, name, price, amount):
         sql = 'INSERT INTO fruits (name, price, amount) VALUES (%s, %s, %s)'

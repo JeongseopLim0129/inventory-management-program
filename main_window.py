@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         form_box = QHBoxLayout()
         self.btn_add1 = QPushButton('새로운 과일 추가')
         self.btn_add1.clicked.connect(self.open_add_fruit_window)
-        self.btn_add2 = QPushButton('정보 수정')
+        self.btn_add2 = QPushButton('과일 정보 수정')
         self.btn_add2.clicked.connect(self.open_update_info_window)
         self.btn_add5 = QPushButton('과일 삭제')
         self.btn_add5.clicked.connect(self.open_delete_fruit_window)
@@ -27,8 +27,20 @@ class MainWindow(QMainWindow):
         self.btn_add3.clicked.connect(self.sort_by_name)
         self.btn_add4 = QPushButton('상품번호순')
         self.btn_add4.clicked.connect(self.sort_by_id)
+        self.btn_add6 = QPushButton('가격 낮은순')
+        self.btn_add6.clicked.connect(self.sort_by_price)
+        self.btn_add7 = QPushButton('가격 높은순')
+        self.btn_add7.clicked.connect(self.sort_by_price_rev)
+        self.btn_add8 = QPushButton('재고 적은순')
+        self.btn_add8.clicked.connect(self.sort_by_amount)
+        self.btn_add9 = QPushButton('재고 많은순')
+        self.btn_add9.clicked.connect(self.sort_by_amount_rev)
         sort_box.addWidget(self.btn_add3)
         sort_box.addWidget(self.btn_add4)
+        sort_box.addWidget(self.btn_add6)
+        sort_box.addWidget(self.btn_add7)
+        sort_box.addWidget(self.btn_add8)
+        sort_box.addWidget(self.btn_add9)
 
         form_box.addWidget(self.btn_add1)
         form_box.addWidget(self.btn_add2)
@@ -62,17 +74,57 @@ class MainWindow(QMainWindow):
         self.add_dialog.exec_()
 
     def open_update_info_window(self):
-        self.add_dialog = update_info_window()
-        self.add_dialog.accepted.connect(self.load_fruits)
-        self.add_dialog.exec_()
+        self.update_dialog = update_info_window()
+        self.update_dialog.accepted.connect(self.load_fruits)
+        self.update_dialog.exec_()
 
     def open_delete_fruit_window(self):
-        self.add_dialog = delete_fruit_window()
-        self.add_dialog.accepted.connect(self.load_fruits)
-        self.add_dialog.exec_()
+        self.del_dialog = delete_fruit_window()
+        self.del_dialog.accepted.connect(self.load_fruits)
+        self.del_dialog.exec_()
 
     def sort_by_name(self):
         rows = self.db.fetch_fruits_order_by_name()
+        self.table.setRowCount(len(rows))
+        for r, (id, name, price, amount) in enumerate(rows):
+            self.table.setItem(r, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(r, 1, QTableWidgetItem(name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+        self.table.resizeColumnsToContents()
+
+    def sort_by_price(self):
+        rows = self.db.fetch_fruits_order_by_price()
+        self.table.setRowCount(len(rows))
+        for r, (id, name, price, amount) in enumerate(rows):
+            self.table.setItem(r, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(r, 1, QTableWidgetItem(name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+        self.table.resizeColumnsToContents()
+
+    def sort_by_price_rev(self):
+        rows = self.db.fetch_fruits_order_by_price_rev()
+        self.table.setRowCount(len(rows))
+        for r, (id, name, price, amount) in enumerate(rows):
+            self.table.setItem(r, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(r, 1, QTableWidgetItem(name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+        self.table.resizeColumnsToContents()
+
+    def sort_by_amount(self):
+        rows = self.db.fetch_fruits_order_by_amount()
+        self.table.setRowCount(len(rows))
+        for r, (id, name, price, amount) in enumerate(rows):
+            self.table.setItem(r, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(r, 1, QTableWidgetItem(name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+        self.table.resizeColumnsToContents()
+
+    def sort_by_amount_rev(self):
+        rows = self.db.fetch_fruits_order_by_amount_rev()
         self.table.setRowCount(len(rows))
         for r, (id, name, price, amount) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
