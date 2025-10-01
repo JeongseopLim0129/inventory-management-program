@@ -29,16 +29,9 @@ class update_info_window(QDialog):
         self.input_amount = QLineEdit()
         self.btn_add3 = QPushButton("재고량 수정")
         self.btn_add3.clicked.connect(self.update_amount_info)
-        self.input_target_name2 = QLineEdit()
-        self.btn_add4 = QPushButton("삭제")
-        self.btn_add4.clicked.connect(self.delete_fruit)
 
         search_box.addWidget(self.input_target_name)
         search_box.addWidget(self.btn_add0)
-
-        delete_box = QHBoxLayout()
-        delete_box.addWidget(self.input_target_name2)
-        delete_box.addWidget(self.btn_add4)
 
         form_box.addWidget(QLabel("이름"))
         form_box.addWidget(self.input_name)
@@ -53,13 +46,12 @@ class update_info_window(QDialog):
         layout.addLayout(search_box)
         layout.addWidget(self.table)
         layout.addLayout(form_box)
-        layout.addLayout(delete_box)
         self.setLayout(layout)
 
     def search_fruit(self):
         target = self.input_target_name.text().strip()
         if not target :
-            QMessageBox.warning(self, '오류' '검색할 과일을 입력하세요')
+            QMessageBox.warning(self, '오류', '검색할 과일을 입력하세요')
             return
         
         ok = self.db.search_fruit_info(target)
@@ -84,7 +76,7 @@ class update_info_window(QDialog):
             return
         
         if not new_name:
-            QMessageBox.warning(self, '오류', '과일 이름을 입력하세요')
+            QMessageBox.warning(self, '오류', '새로운 과일 이름을 입력하세요')
             return
         
         ok = self.db.update_name_info(new_name, target)
@@ -125,7 +117,7 @@ class update_info_window(QDialog):
             return
         
         if not new_amount:
-            QMessageBox.warning(self, '오류', '재고량을 입력하세요')
+            QMessageBox.warning(self, '오류', '새로운 재고량을 입력하세요')
             return
         
         ok = self.db.update_amount_info(new_amount, target)
@@ -137,18 +129,3 @@ class update_info_window(QDialog):
             self.search_fruit()           
         else:
             QMessageBox.critical(self, '실패', '수정중 오류가 발생했습니다')
-
-    def delete_fruit(self):
-        target = self.input_target_name2.text().strip()
-
-        if not target:
-            QMessageBox.warning(self, '오류', '수정할 과일을 먼저 검색하거나 입력하세요.')
-            return
-        
-        ok = self.db.delete_fruit(target)
-        if ok:
-            QMessageBox.information(self, '완료', '삭제되었습니다')
-            self.input_target_name2.clear()
-            self.accepted.emit()          
-        else:
-            QMessageBox.critical(self, '실패', '삭제중 오류가 발생했습니다')

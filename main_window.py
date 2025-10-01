@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTab
 from db_helper import DB, DB_CONFIG
 from add_fruit_window import add_fruit_window
 from update_info_window import update_info_window
+from delete_fruit_window import delete_fruit_window
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -18,6 +19,8 @@ class MainWindow(QMainWindow):
         self.btn_add1.clicked.connect(self.open_add_fruit_window)
         self.btn_add2 = QPushButton('정보 수정')
         self.btn_add2.clicked.connect(self.open_update_info_window)
+        self.btn_add5 = QPushButton('과일 삭제')
+        self.btn_add5.clicked.connect(self.open_delete_fruit_window)
         
         sort_box = QHBoxLayout()
         self.btn_add3 = QPushButton('이름순')
@@ -29,6 +32,8 @@ class MainWindow(QMainWindow):
 
         form_box.addWidget(self.btn_add1)
         form_box.addWidget(self.btn_add2)
+        form_box.addWidget(self.btn_add5)
+        
         self.table = QTableWidget()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels(['ID', '과일 이름', '가격', '재고량'])
@@ -58,6 +63,11 @@ class MainWindow(QMainWindow):
 
     def open_update_info_window(self):
         self.add_dialog = update_info_window()
+        self.add_dialog.accepted.connect(self.load_fruits)
+        self.add_dialog.exec_()
+
+    def open_delete_fruit_window(self):
+        self.add_dialog = delete_fruit_window()
         self.add_dialog.accepted.connect(self.load_fruits)
         self.add_dialog.exec_()
 
