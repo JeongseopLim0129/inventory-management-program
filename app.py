@@ -1,4 +1,3 @@
-# app.py
 import sys
 from PyQt5.QtWidgets import QApplication
 from login_dialog import LoginDialog

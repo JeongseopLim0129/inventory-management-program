@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton, QMessageBox, QDialog, QAction, qApp
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from db_helper import DB, DB_CONFIG
 from add_fruit_window import add_fruit_window
 from update_info_window import update_info_window
@@ -88,6 +88,7 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def open_add_fruit_window(self):
         self.add_dialog = add_fruit_window()
@@ -113,6 +114,7 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_price(self):
         rows = self.db.fetch_fruits_order_by_price()
@@ -123,6 +125,7 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_price_rev(self):
         rows = self.db.fetch_fruits_order_by_price_rev()
@@ -133,6 +136,7 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_amount(self):
         rows = self.db.fetch_fruits_order_by_amount()
@@ -143,6 +147,7 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_amount_rev(self):
         rows = self.db.fetch_fruits_order_by_amount_rev()
@@ -153,6 +158,7 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_id(self):
         rows = self.db.fetch_fruits()
@@ -163,3 +169,4 @@ class MainWindow(QMainWindow):
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
         self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)

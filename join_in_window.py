@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QPushButton, QLineEdit, QMessageBox, QHBoxLayout, QFormLayout
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from db_helper import DB, DB_CONFIG
 
 class join_in_window(QDialog):

@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QLineEdit, QMessageBox, QHBoxLayout, QTableWidget, QTableWidgetItem
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from db_helper import DB, DB_CONFIG
 
 class update_info_window(QDialog):
@@ -58,14 +58,13 @@ class update_info_window(QDialog):
         
         ok = self.db.search_fruit_info(target)
         if ok:
-            rows = self.db.search_fruit_info(target)
-            self.table.setRowCount(len(rows))
-            for r, (id, name, price, amount) in enumerate(rows):
-                self.table.setItem(r, 0, QTableWidgetItem(str(id)))
-                self.table.setItem(r, 1, QTableWidgetItem(name))
-                self.table.setItem(r, 2, QTableWidgetItem(str(price)))
-                self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
-            self.table.resizeColumnsToContents()          
+            row = self.db.search_fruit_info(target)
+            self.table.setItem(r, 0, QTableWidgetItem(str(row.id)))
+            self.table.setItem(r, 1, QTableWidgetItem(row.name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(row.price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(row.amount)))
+            self.table.resizeColumnsToContents()
+            self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         else:
             QMessageBox.critical(self, '실패', '검색 오류가 발생했습니다')
 
