@@ -10,6 +10,7 @@ class delete_fruit_window(QDialog):
 
         self.setWindowTitle("과일 삭제")
         self.setWindowIcon(QIcon('icon-apple.png'))
+        self.setGeometry(300, 300, 600, 700)
 
         vbox = QVBoxLayout()
         layout = QHBoxLayout()
