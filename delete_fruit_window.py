@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QLineEdit, QMessageBox, QHBoxLayout
+from PyQt5.QtGui import QIcon
 from db_helper import DB, DB_CONFIG
 
 class delete_fruit_window(QDialog):
@@ -7,6 +8,7 @@ class delete_fruit_window(QDialog):
         self.db = DB(**DB_CONFIG)
 
         self.setWindowTitle("과일 삭제")
+        self.setWindowIcon(QIcon('icon-pineapple.png'))
         self.setGeometry(300, 300, 300, 200)
 
         layout = QHBoxLayout()

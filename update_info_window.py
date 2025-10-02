@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QLineEdit, QMessageBox, QHBoxLayout, QTableWidget, QTableWidgetItem
+from PyQt5.QtGui import QIcon
 from db_helper import DB, DB_CONFIG
 
 class update_info_window(QDialog):
@@ -7,6 +8,7 @@ class update_info_window(QDialog):
         self.db = DB(**DB_CONFIG)
 
         self.setWindowTitle("정보 수정")
+        self.setWindowIcon(QIcon('icon-pineapple.png'))
         self.setGeometry(300, 300, 300, 200)
 
         layout = QVBoxLayout()

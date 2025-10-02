@@ -1,10 +1,12 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtGui import QIcon
 from db_helper import DB, DB_CONFIG
 from join_in_window import join_in_window
 class LoginDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("로그인")
+        self.setWindowIcon(QIcon('icon-login.png'))
         self.db = DB(**DB_CONFIG)
 
         self.username = QLineEdit()

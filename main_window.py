@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton, QMessageBox, QDialog
+from PyQt5.QtGui import QIcon
 from db_helper import DB, DB_CONFIG
 from add_fruit_window import add_fruit_window
 from update_info_window import update_info_window
@@ -12,6 +13,7 @@ class MainWindow(QMainWindow):
 
         central = QWidget()
         self.setCentralWidget(central)
+        self.setWindowIcon(QIcon('icon-pineapple.png'))
         vbox = QVBoxLayout(central)
 
         form_box = QHBoxLayout()

@@ -1,10 +1,12 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QPushButton, QLineEdit, QMessageBox, QHBoxLayout, QFormLayout
+from PyQt5.QtGui import QIcon
 from db_helper import DB, DB_CONFIG
 
 class join_in_window(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("회원가입")
+        self.setWindowIcon(QIcon('icon-join_in.png'))
         self.db = DB(**DB_CONFIG)
 
         self.username = QLineEdit()
