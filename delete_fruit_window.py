@@ -29,7 +29,7 @@ class delete_fruit_window(QDialog):
         self.btn_add = QPushButton("삭제")
         self.btn_add.clicked.connect(self.delete_fruit)
 
-        layout.addWidget(QLabel("이름"))
+        layout.addWidget(QLabel("삭제할 과일이름"))
         layout.addWidget(self.input_target_name)
         layout.addWidget(self.btn_add)
 

@@ -32,6 +32,7 @@ class update_info_window(QDialog):
         self.btn_add3 = QPushButton("재고량 수정")
         self.btn_add3.clicked.connect(self.update_amount_info)
 
+        search_box.addWidget(QLabel("삭제할 과일이름"))
         search_box.addWidget(self.input_target_name)
         search_box.addWidget(self.btn_add0)
 
