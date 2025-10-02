@@ -35,13 +35,10 @@ class update_info_window(QDialog):
         search_box.addWidget(self.input_target_name)
         search_box.addWidget(self.btn_add0)
 
-        form_box.addWidget(QLabel("이름"))
         form_box.addWidget(self.input_name)
         form_box.addWidget(self.btn_add1)
-        form_box.addWidget(QLabel("가격"))
         form_box.addWidget(self.input_price)
         form_box.addWidget(self.btn_add2)
-        form_box.addWidget(QLabel("재고량"))
         form_box.addWidget(self.input_amount)
         form_box.addWidget(self.btn_add3)
         
@@ -59,10 +56,11 @@ class update_info_window(QDialog):
         ok = self.db.search_fruit_info(target)
         if ok:
             row = self.db.search_fruit_info(target)
-            self.table.setItem(0, 0, QTableWidgetItem(str(row.id)))
-            self.table.setItem(0, 1, QTableWidgetItem(row.name))
-            self.table.setItem(0, 2, QTableWidgetItem(str(row.price)))
-            self.table.setItem(0, 3, QTableWidgetItem(str(row.amount)))
+            self.table.setRowCount(1)
+            self.table.setItem(0, 0, QTableWidgetItem(str(row[0][0])))
+            self.table.setItem(0, 1, QTableWidgetItem(row[0][1]))
+            self.table.setItem(0, 2, QTableWidgetItem(str(row[0][2])))
+            self.table.setItem(0, 3, QTableWidgetItem(str(row[0][3])))
             self.table.resizeColumnsToContents()
             self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         else:
