@@ -56,11 +56,12 @@ class update_info_window(QDialog):
         ok = self.db.search_fruit_info(target)
         if ok:
             row = self.db.search_fruit_info(target)
+            id, name, price, amount = row[0]
             self.table.setRowCount(1)
-            self.table.setItem(0, 0, QTableWidgetItem(str(row[0][0])))
-            self.table.setItem(0, 1, QTableWidgetItem(row[0][1]))
-            self.table.setItem(0, 2, QTableWidgetItem(str(row[0][2])))
-            self.table.setItem(0, 3, QTableWidgetItem(str(row[0][3])))
+            self.table.setItem(0, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(0, 1, QTableWidgetItem(name))
+            self.table.setItem(0, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(0, 3, QTableWidgetItem(str(amount)))
             self.table.resizeColumnsToContents()
             self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         else:
