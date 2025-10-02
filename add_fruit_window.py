@@ -33,11 +33,11 @@ class add_fruit_window(QDialog):
         name = self.input_name.text().strip()
         price = self.input_price.text().strip()
         amount = self.input_amount.text().strip()
-        date = QDate.currentDate().toString(Qt.ISODate)
+        add_date = QDate.currentDate().toString(Qt.ISODate)
         if not name or not price or not amount:
             QMessageBox.warning(self, '오류', '과일 이름, 가격, 재고량을 모두 입력하세요')
             return            
-        ok = self.db.insert_fruit(name, price, amount, date)
+        ok = self.db.insert_fruit(name, price, amount, add_date)
         if ok:
             QMessageBox.information(self, '완료', '추가되었습니다')
             self.input_name.clear()

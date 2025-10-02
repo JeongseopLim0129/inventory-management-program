@@ -100,12 +100,12 @@ class DB:
                 cur.execute(sql)
                 return cur.fetchall()   
     
-    def insert_fruit(self, name, price, amount, date):
+    def insert_fruit(self, name, price, amount, add_date):
         sql = 'INSERT INTO fruits (name, price, amount, date) VALUES (%s, %s, %s, %s)'
         with self.connect() as conn:
             try:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (name, price, amount, date))
+                    cur.execute(sql, (name, price, amount, add_date))
                     conn.commit()
                 return True
             except Exception:
@@ -166,3 +166,10 @@ class DB:
             except Exception:
                 conn.rollback()
                 return False
+            
+    def fetch_date_fruits(self, sel_date):
+        sql = 'SELECT * FROM fruits WHERE date = %s'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql, sel_date)
+                return cur.fetchall()
