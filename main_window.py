@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from db_helper import DB, DB_CONFIG
 from add_fruit_window import add_fruit_window
 from update_info_window import update_info_window
@@ -10,6 +11,15 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.db = DB(**DB_CONFIG)
         self.setWindowTitle('과일 재고 관리')
+
+        statusBar = self.statusBar()
+
+        date_label = QLabel()
+        current_date = QDate.currentDate()
+        date_string = current_date.toString(Qt.ISODate)
+        date_label.setText(date_string)
+
+        statusBar.addPermanentWidget(date_label, 0)
 
         central = QWidget()
         self.setCentralWidget(central)
@@ -57,7 +67,13 @@ class MainWindow(QMainWindow):
         self.btn_add8 = QPushButton('재고 ↑')
         self.btn_add8.clicked.connect(self.sort_by_amount)
         self.btn_add9 = QPushButton('재고 ↓')
-        self.btn_add9.clicked.connect(self.sort_by_amount_rev)
+        self.btn_add9.clicked.connect(self.sort_by_amount_rev)         
+        self.btn_add11 = QPushButton('입고일 ↑')
+        self.btn_add11.clicked.connect(self.sort_by_date)
+        self.btn_add12 = QPushButton('입고일 ↓')
+        self.btn_add12.clicked.connect(self.sort_by_date_rev)
+
+
         sort_box.addWidget(self.btn_add3)
         sort_box.addWidget(self.btn_add4)
         sort_box.addWidget(self.btn_add10)
@@ -65,14 +81,16 @@ class MainWindow(QMainWindow):
         sort_box.addWidget(self.btn_add7)
         sort_box.addWidget(self.btn_add8)
         sort_box.addWidget(self.btn_add9)
+        sort_box.addWidget(self.btn_add11)
+        sort_box.addWidget(self.btn_add12)
 
         form_box.addWidget(self.btn_add1)
         form_box.addWidget(self.btn_add2)
         form_box.addWidget(self.btn_add5)
         
         self.table = QTableWidget()
-        self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels(['ID', '과일 이름', '가격', '재고량'])
+        self.table.setColumnCount(5)
+        self.table.setHorizontalHeaderLabels(['ID', '과일 이름', '가격', '재고량', '입고일'])
         self.table.setEditTriggers(self.table.NoEditTriggers)
         self.table.verticalHeader().setVisible(False)
 
@@ -85,11 +103,12 @@ class MainWindow(QMainWindow):
     def load_fruits(self):
         rows = self.db.fetch_fruits()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
@@ -111,76 +130,107 @@ class MainWindow(QMainWindow):
     def sort_by_name(self):
         rows = self.db.fetch_fruits_order_by_name()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_price(self):
         rows = self.db.fetch_fruits_order_by_price()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_price_rev(self):
         rows = self.db.fetch_fruits_order_by_price_rev()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_amount(self):
         rows = self.db.fetch_fruits_order_by_amount()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_amount_rev(self):
         rows = self.db.fetch_fruits_order_by_amount_rev()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_id(self):
         rows = self.db.fetch_fruits()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def sort_by_id_rev(self):
         rows = self.db.fetch_fruits_rev()
         self.table.setRowCount(len(rows))
-        for r, (id, name, price, amount) in enumerate(rows):
+        for r, (id, name, price, amount, date) in enumerate(rows):
             self.table.setItem(r, 0, QTableWidgetItem(str(id)))
             self.table.setItem(r, 1, QTableWidgetItem(name))
             self.table.setItem(r, 2, QTableWidgetItem(str(price)))
             self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
+        self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def sort_by_date(self):
+        rows = self.db.fetch_fruits_order_by_date()
+        self.table.setRowCount(len(rows))
+        for r, (id, name, price, amount, date) in enumerate(rows):
+            self.table.setItem(r, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(r, 1, QTableWidgetItem(name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
+        self.table.resizeColumnsToContents()
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def sort_by_date_rev(self):
+        rows = self.db.fetch_fruits_order_by_date_rev()
+        self.table.setRowCount(len(rows))
+        for r, (id, name, price, amount, date) in enumerate(rows):
+            self.table.setItem(r, 0, QTableWidgetItem(str(id)))
+            self.table.setItem(r, 1, QTableWidgetItem(name))
+            self.table.setItem(r, 2, QTableWidgetItem(str(price)))
+            self.table.setItem(r, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(r, 4, QTableWidgetItem(str(date)))
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)

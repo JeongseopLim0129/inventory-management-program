@@ -84,14 +84,28 @@ class DB:
         with self.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute(sql)
-                return cur.fetchall()      
+                return cur.fetchall()
+
+    def fetch_fruits_order_by_date(self):
+        sql = 'SELECT * FROM fruits ORDER BY date'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()
+            
+    def fetch_fruits_order_by_date_rev(self):
+        sql = 'SELECT * FROM fruits ORDER BY date DESC'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()   
     
-    def insert_fruit(self, name, price, amount):
-        sql = 'INSERT INTO fruits (name, price, amount) VALUES (%s, %s, %s)'
+    def insert_fruit(self, name, price, amount, date):
+        sql = 'INSERT INTO fruits (name, price, amount, date) VALUES (%s, %s, %s, %s)'
         with self.connect() as conn:
             try:
                 with conn.cursor() as cur:
-                    cur.execute(sql, (name, price, amount))
+                    cur.execute(sql, (name, price, amount, date))
                     conn.commit()
                 return True
             except Exception:

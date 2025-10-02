@@ -9,7 +9,6 @@ class update_info_window(QDialog):
 
         self.setWindowTitle("정보 수정")
         self.setWindowIcon(QIcon('icon-pineapple.png'))
-        self.setGeometry(300, 300, 300, 200)
 
         layout = QVBoxLayout()
         search_box = QHBoxLayout()
@@ -17,10 +16,11 @@ class update_info_window(QDialog):
         self.btn_add0 = QPushButton("검색")
         self.btn_add0.clicked.connect(self.search_fruit)
         self.table = QTableWidget()
-        self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels(['ID', '과일 이름', '가격', '재고량'])
+        self.table.setColumnCount(5)
+        self.table.setHorizontalHeaderLabels(['ID', '과일 이름', '가격', '재고량', '입고일'])
         self.table.setEditTriggers(self.table.NoEditTriggers)
         self.table.verticalHeader().setVisible(False)
+
         form_box = QHBoxLayout()
         self.input_name = QLineEdit()
         self.btn_add1 = QPushButton("이름 수정")
@@ -56,12 +56,13 @@ class update_info_window(QDialog):
         ok = self.db.search_fruit_info(target)
         if ok:
             row = self.db.search_fruit_info(target)
-            id, name, price, amount = row[0]
+            id, name, price, amount, date = row[0]
             self.table.setRowCount(1)
             self.table.setItem(0, 0, QTableWidgetItem(str(id)))
             self.table.setItem(0, 1, QTableWidgetItem(name))
             self.table.setItem(0, 2, QTableWidgetItem(str(price)))
             self.table.setItem(0, 3, QTableWidgetItem(str(amount)))
+            self.table.setItem(0, 4, QTableWidgetItem(str(date)))
             self.table.resizeColumnsToContents()
             self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         else:
