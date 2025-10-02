@@ -12,15 +12,17 @@ class join_in_window(QDialog):
         self.username = QLineEdit()
         self.password = QLineEdit()
         self.btn_join = QPushButton('회원가입')
+        self.btn_join.setStyleSheet("color: blue;"
+                       "background-color: #87CEFA;"
+                       "border-style: solid;"
+                       "border-width: 3px;"
+                       "border-color: #87CEFA")
         self.btn_join.clicked.connect(self.try_join_in)
         self.password.setEchoMode(QLineEdit.Password)
 
         form = QFormLayout()
         form.addRow("아이디", self.username)
         form.addRow("비밀번호", self.password)
-
-        self.btn_join = QPushButton('회원가입')
-        self.btn_join.clicked.connect(self.try_join_in)
 
         layout = QVBoxLayout()
         layout.addLayout(form)

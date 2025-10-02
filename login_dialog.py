@@ -32,7 +32,7 @@ class LoginDialog(QDialog):
                        "background-color: #87CEFA;"
                        "border-style: solid;"
                        "border-width: 3px;"
-                       "border-color: #87CEFA;")
+                       "border-color: #87CEFA")
         self.btn_join.clicked.connect(self.open_join_in_window)
 
         layout = QVBoxLayout()

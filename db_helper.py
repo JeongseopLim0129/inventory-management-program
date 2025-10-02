@@ -43,6 +43,13 @@ class DB:
             with conn.cursor() as cur:
                 cur.execute(sql)
                 return cur.fetchall()
+            
+    def fetch_fruits_rev(self):
+        sql = 'SELECT * FROM fruits ORDER BY fruit_id DESC'
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall()
     
     def fetch_fruits_order_by_name(self):
         sql = 'SELECT * FROM fruits ORDER BY name'
