@@ -18,9 +18,21 @@ class LoginDialog(QDialog):
         form.addRow("비밀번호", self.password)
 
         self.btn_login = QPushButton("로그인")
+        self.btn_login.setStyleSheet("color: green;"
+                      "background-color: #7FFFD4;"
+                      "border-style: solid;"
+                      "border-width: 2px;"
+                      "border-color: #7FFFD4;"
+                      "border-radius: 3px;"
+                      "background-color: #7FFFD4")
         self.btn_login.clicked.connect(self.try_login)
 
         self.btn_join = QPushButton("회원가입")
+        self.btn_join.setStyleSheet("color: blue;"
+                       "background-color: #87CEFA;"
+                       "border-style: solid;"
+                       "border-width: 3px;"
+                       "border-color: #87CEFA;")
         self.btn_join.clicked.connect(self.open_join_in_window)
 
         layout = QVBoxLayout()

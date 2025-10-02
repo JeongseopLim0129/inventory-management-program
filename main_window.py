@@ -19,10 +19,28 @@ class MainWindow(QMainWindow):
         form_box = QHBoxLayout()
         
         self.btn_add1 = QPushButton('새로운 과일 추가')
+        self.btn_add1.setStyleSheet("color: black;"
+                      "background-color: #3FE87F;"
+                      "border-style: solid;"
+                      "border-width: 2px;"
+                      "border-color: #3FE87F;"
+                      "border-radius: 3px")
         self.btn_add1.clicked.connect(self.open_add_fruit_window)
         self.btn_add2 = QPushButton('과일 정보 수정')
+        self.btn_add2.setStyleSheet("color: black;"
+                      "background-color: #F0E969;"
+                      "border-style: solid;"
+                      "border-width: 2px;"
+                      "border-color: #F0E969;"
+                      "border-radius: 3px")
         self.btn_add2.clicked.connect(self.open_update_info_window)
         self.btn_add5 = QPushButton('과일 삭제')
+        self.btn_add5.setStyleSheet("color: black;"
+                      "background-color: #F05650;"
+                      "border-style: solid;"
+                      "border-width: 2px;"
+                      "border-color: #F05650;"
+                      "border-radius: 3px")
         self.btn_add5.clicked.connect(self.open_delete_fruit_window)
         
         sort_box = QHBoxLayout()
