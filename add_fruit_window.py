@@ -8,7 +8,7 @@ class add_fruit_window(QDialog):
         self.db = DB(**DB_CONFIG)
 
         self.setWindowTitle("과일 추가")
-        self.setWindowIcon(QIcon('icon-pineapple.png'))
+        self.setWindowIcon(QIcon('icon-kiwi.png'))
         self.setGeometry(300, 300, 300, 200)
 
         layout = QHBoxLayout()

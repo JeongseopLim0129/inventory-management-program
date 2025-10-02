@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QPushButton, QMessageBox, QDialog, QAction, qApp
 from PyQt5.QtGui import QIcon
 from db_helper import DB, DB_CONFIG
 from add_fruit_window import add_fruit_window
@@ -13,10 +13,11 @@ class MainWindow(QMainWindow):
 
         central = QWidget()
         self.setCentralWidget(central)
-        self.setWindowIcon(QIcon('icon-pineapple.png'))
+        self.setWindowIcon(QIcon('icon-basket.png'))
         vbox = QVBoxLayout(central)
 
         form_box = QHBoxLayout()
+        
         self.btn_add1 = QPushButton('새로운 과일 추가')
         self.btn_add1.clicked.connect(self.open_add_fruit_window)
         self.btn_add2 = QPushButton('과일 정보 수정')
